@@ -6,7 +6,6 @@ import pwinput
 
 def menu_login():
     controller = Colaborador_Controller()
-    print("\n--- Tela de Login ---")
 
     while True:
         print("\n1. Fazer Login")
@@ -120,12 +119,12 @@ def menu_medicamento():
                 print("\n--- Cadastrar Novo Medicamento ---")
                 nome = input("Digite o nome do Medicamento: ")
                 categoria = input("Qual a Categoria do Medimento? ")
-                preco = float(input("Digite do Preco do Medicamento(unidade): "))
-                estoque = int(input("Digite a Quantidade do Medicamento no Estoque: "))
+                preco = input("Digite o Preço do Medicamento (unidade): ").strip().replace(',', '.')
+                estoque = input("Digite a Quantidade do Medicamento no Estoque: ").strip()
 
                 try:
-                    preco = float(preco.strip().replace(',', '.'))
-                    estoque = int(estoque.strip())
+                    preco = float(preco)
+                    estoque = int(estoque)
                 except ValueError:
                     print("Erro: Preço deve ser um número decimal e estoque um número inteiro.")
                     continue
@@ -160,7 +159,7 @@ def menu_medicamento():
             elif opcao == '5':
                 print("\n-- Atualizar Preço ---")
                 nome = input("Digite o nome do Medicamento: ")
-                preco = float(input("Digite Novo Preco do Medicamento(unidade): "))
+                preco = input("Digite o Preço do Medicamento (unidade): ").strip().replace(',', '.')
                 sucesso = controller.atualizar_preco(nome, preco)
                 if sucesso:
                     print("Preço atualizado com sucesso!")

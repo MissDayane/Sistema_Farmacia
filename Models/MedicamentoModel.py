@@ -77,6 +77,7 @@ class Medicamento:
                     cursor.execute(query, (preco, nome))
                     conn.commit()
                     return cursor.rowcount > 0
+                    return True
         except psycopg2.Error as e:
             print(f"Erro ao atualizar preço: {e}")
             return False

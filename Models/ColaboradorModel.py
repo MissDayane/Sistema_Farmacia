@@ -63,14 +63,14 @@ class Colaborador:
         conn = criar_conexao()
         try:
             with conn.cursor() as cursor:
-                sql = "SELECT CPF_colaborador, nome, cargo FROM Colaboradores"
+                sql = "SELECT ID_colaborador, CPF_colaborador, nome, cargo FROM Colaboradores"
                 cursor.execute(sql)
                 colaboradores = cursor.fetchall()
 
                 if colaboradores:
                     print("Lista de Colaboradores:")
                     for colaborador in colaboradores:
-                        print(f"CPF: {colaborador[0]}, Nome: {colaborador[1]}, Cargo: {colaborador[2]}")
+                        print(f"ID_COLABORADOR: {colaborador[0]}CPF: {colaborador[1]}, Nome: {colaborador[2]}, Cargo: {colaborador[3]}")
                     return colaboradores
                 else:
                     print("Nenhum colaborador encontrado.")
@@ -118,18 +118,17 @@ class Colaborador:
 
     
     
-    def excluir(cpf):
-        
+    def excluir(ID_colaborador):
         try:
             conn = criar_conexao()
             with conn.cursor() as cursor:
-                cursor.execute("SELECT nome FROM Colaboradores WHERE CPF_colaborador = %s", (cpf,))
+                cursor.execute("SELECT nome FROM Colaboradores WHERE ID_colaborador = %s", (ID_colaborador,))
                 colaborador = cursor.fetchone()
                 if not colaborador:
                     print("Colaborador não encontrado.")
                     return False
-
-                cursor.execute("DELETE FROM Colaboradores WHERE CPF_colaborador = %s", (cpf,))
+                cursor.execute("Update Vendas set ID_colaborador = NULL WHERE ID_colaborador = %s", (ID_colaborador,))
+                cursor.execute("DELETE FROM Colaboradores WHERE ID_colaborador = %s", (ID_colaborador,))
                 conn.commit()
                 print("Colaborador excluído com sucesso.")
                 return True

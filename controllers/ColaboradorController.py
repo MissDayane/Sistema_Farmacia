@@ -66,11 +66,12 @@ class Colaborador_Controller:
             return False
 
     
-    def excluir_colaborador(self, cpf):
+    def excluir_colaborador(self, id):
         print("\n--- Exclusão de Colaborador ---")
-        cpf = input("Digite o CPF do colaborador que deseja excluir: ").strip()
+        id = input("Digite o Id do colaborador que deseja excluir: ").strip()
 
-        if Colaborador.excluir(cpf):
+        if Colaborador.excluir(id):
             print("Colaborador excluído com sucesso.")
+            return True
         else:
             print("Erro ao excluir colaborador. Verifique se o colaborador existe.")

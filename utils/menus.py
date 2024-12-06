@@ -6,6 +6,7 @@ import pwinput
 
 def menu_login():
     controller = Colaborador_Controller()
+    print("\n--- Tela de Login ---")
 
     while True:
         print("\n1. Fazer Login")
@@ -81,14 +82,14 @@ def menu_colaborador():
                     print("Erro ao alterar a senha. Verifique os dados e tente novamente.")
             elif opcao == '3':
                 print("\n--- Exclusão de Colaborador ---")
-                cpf = input("Digite o CPF do colaborador a ser excluído: ").strip()
+                id = input("Digite o Id do colaborador a ser excluído: ").strip()
                 confirmacao = input("Tem certeza? (S/N): ").strip().lower()
                 if confirmacao == 's':
-                    sucesso = controller.excluir_colaborador(cpf)
+                    sucesso = controller.excluir_colaborador(id)
                     if sucesso:
                         print("Colaborador excluído com sucesso!")
                     else:
-                        print("Erro ao excluir colaborador. Verifique os dados e tente novamente.")
+                        print("Erro ao excluir ALGO")
                 else:
                     print("Operação cancelada.")
             elif opcao == '0':
@@ -119,12 +120,12 @@ def menu_medicamento():
                 print("\n--- Cadastrar Novo Medicamento ---")
                 nome = input("Digite o nome do Medicamento: ")
                 categoria = input("Qual a Categoria do Medimento? ")
-                preco = input("Digite o Preço do Medicamento (unidade): ").strip().replace(',', '.')
-                estoque = input("Digite a Quantidade do Medicamento no Estoque: ").strip()
+                preco = float(input("Digite do Preco do Medicamento(unidade): "))
+                estoque = int(input("Digite a Quantidade do Medicamento no Estoque: "))
 
                 try:
-                    preco = float(preco)
-                    estoque = int(estoque)
+                    preco = float(preco.strip().replace(',', '.'))
+                    estoque = int(estoque.strip())
                 except ValueError:
                     print("Erro: Preço deve ser um número decimal e estoque um número inteiro.")
                     continue
@@ -159,7 +160,7 @@ def menu_medicamento():
             elif opcao == '5':
                 print("\n-- Atualizar Preço ---")
                 nome = input("Digite o nome do Medicamento: ")
-                preco = input("Digite o Preço do Medicamento (unidade): ").strip().replace(',', '.')
+                preco = float(input("Digite Novo Preco do Medicamento(unidade): "))
                 sucesso = controller.atualizar_preco(nome, preco)
                 if sucesso:
                     print("Preço atualizado com sucesso!")
@@ -343,4 +344,3 @@ def menu_venda():
             print(f"Erro durante a operação: {e}")
 
         
-
